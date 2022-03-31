@@ -1,0 +1,109 @@
+<h2 id="first_title">{{formtitle}}</h2> <br>
+
+<div class="form_layout">
+    <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="patient.nombre" name="nombre">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Apellidos</mat-label>
+      <input matInput [(ngModel)]="patient.apellidos" name="apellidos">
+    </mat-form-field></td>
+  </tr></table>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <span matPrefix>+34 &nbsp;</span>
+      <input type="tel" matInput placeholder="928112233" [(ngModel)]="patient.telefono" name="telefono">
+    </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>DNI</mat-label>
+    <input matInput #dni maxlength="9" placeholder="Ej. 45377731K" [(ngModel)]="patient.dni" name="dni">
+    <mat-hint align="end">{{dni.value.length}} / 9</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Número de tarjeta sanitaria</mat-label>
+    <input matInput #sanitaryCode maxlength="16" placeholder="Ej. BGKX004499816015" [(ngModel)]="patient.tarjetaSanitaria" name="tarjetaSanitaria"> 
+    <mat-hint align="end">{{sanitaryCode.value.length}} / 16</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Enfermedad</mat-label>
+    <input matInput [(ngModel)]="patient.enfermedad" name="enfermedad">
+  </mat-form-field>
+
+  <div id="send_button">
+    <button [style.display]= "addbtnVisibility ? 'inline-block': 'none'" id ="addbtn" mat-raised-button color="primary" (click)="addPatient()">Añadir paciente</button>
+    <button [style.display]= "updatebtnVisibility? 'inline-block': 'none'" id ="updatebtn" mat-raised-button color="accent" (click)="verifyUpdate()">Guardar datos del paciente</button>
+  </div>
+  
+</div>
+
+<div id="table_background">
+  <h2 id="table_title">{{tabletitle}}</h2> <br>
+
+  <table id="table" mat-table [dataSource]= "patientlist" class="mat-elevation-z8">
+  
+    <!-- Id Column -->
+  <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let patient"> {{patient.id}} </td>
+  </ng-container>
+  
+  <!-- Nombre Column -->
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let patient"> {{patient.nombre}} </td>
+  </ng-container>
+
+  <!-- Apellidos Column -->
+  <ng-container matColumnDef="apellidos">
+    <th mat-header-cell *matHeaderCellDef> Apellidos</th>
+    <td mat-cell *matCellDef="let patient"> {{patient.apellidos}} </td>
+  </ng-container>
+
+  <!-- Teléfono Column -->
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+    <td mat-cell *matCellDef="let patient"> {{patient.telefono}} </td>
+  </ng-container>
+
+  <!-- DNI Column -->
+  <ng-container matColumnDef="dni">
+    <th mat-header-cell *matHeaderCellDef> DNI </th>
+    <td mat-cell *matCellDef="let patient"> {{patient.dni}} </td>
+  </ng-container>
+
+  <!-- Tarjeta Sanitaria Column -->
+  <ng-container matColumnDef="tarjetaSanitaria">
+    <th mat-header-cell *matHeaderCellDef> Tarjeta Sanitaria </th>
+    <td mat-cell *matCellDef="let patient"> {{patient.tarjetaSanitaria}} </td>
+  </ng-container>
+
+  <!-- Enfermedad Column -->
+  <ng-container matColumnDef="enfermedad">
+    <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+    <td mat-cell *matCellDef="let patient"> {{patient.enfermedad}} </td>
+  </ng-container>
+
+  <!-- Edit Column -->
+  <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef> Editar</th>
+      <td mat-cell *matCellDef="let patient"> <button mat-raised-button color="accent" (click)="updatePatient(patient.id)">Editar</button> </td>
+  </ng-container>
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="eliminar">
+      <th mat-header-cell *matHeaderCellDef> Eliminar</th>
+      <td mat-cell *matCellDef="let patient"> <button mat-raised-button color="warn" (click)="removePatient(patient.id)">Eliminar</button> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  </table>
+
+</div>
+

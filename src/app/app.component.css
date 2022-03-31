@@ -1,0 +1,16 @@
+html{
+    background-color: rgb(0, 77, 13);
+}
+
+#hospital_header{
+    padding: 60px;
+    text-align: center;
+    background: lightblue;
+    color: rgb(0, 53, 18);
+    font-size: 60px;
+    margin-bottom: 2%;
+}
+
+.img_logo{
+    width: 7%;
+}
